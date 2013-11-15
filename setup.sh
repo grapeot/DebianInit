@@ -1,11 +1,11 @@
 #! /bin/bash
 # Configure sources
-cp /etc/apt/sources.list /etc/apt/sources.list.bak
-cat /etc/apt/sources.list | sed 's/wheezy /unstable /g' | sed 's/main/main contrib non-free/' | tee /etc/apt/sources.list
-apt-get update
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
+sudo bash -c "cat /etc/apt/sources.list | sed 's/wheezy /unstable /g' | sed 's/main/main contrib non-free/' | tee /etc/apt/sources.list"
+sudo apt-get update
 
 # Configure development environment
-apt-get install zsh git tig build-essential wget curl rsync 
+sudo apt-get install zsh git tig build-essential wget curl rsync 
 # shell environment...
 chsh -s $(which zsh)
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
@@ -46,10 +46,11 @@ git config --global user.name "Yan Wang"
 git config --global user.email grapeot@gmail.com
 git config --global push.default simple # eliminate the warning message of the new version git
 # ssh configuration (won't be effected until next restart)
-bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
+sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
 
 # Installing desktop environment 
-apt-get install tmux python rsync zip unzip unrar xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto gnome-screensaver scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata
+sudo apt-get install tmux python rsync zip unzip unrar xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto gnome-screensaver scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata
+sudo apt-get remove xscreensaver
 wget http://font.ubuntu.com/download/ubuntu-font-family-0.80.zip
 unzip ubuntu-font-family-0.80.zip
 mkdir ~/.fonts
