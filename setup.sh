@@ -31,6 +31,7 @@
 # mkdir colors
 # cd colors
 # wget http://files.werx.dk/wombat.vim
+
 # mv wombat.vim wombat2.vim
 # cat wombat2.vim | dos2unix > wombat.vim
 # rm wombat2.vim
@@ -41,7 +42,21 @@
 # git config --global user.name "Yan Wang"
 # git config --global user.email grapeot@gmail.com
 
-echo "ssh configuration (won't be effected until next restart)"
-sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
+# echo "ssh configuration (won't be effected until next restart)"
+# sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
 
 # echo Installing application software
+sudo apt-get install tmux python rsync zip unzip unrar xfce4 xfce4-power-manager xfce4-screenshooter evince pulseaudio cups cups-client ristretto gnome-screensaver scim scim-chinese ttf-wqy-microhei ttf-wqy-zenheifonts-inconsolata
+wget http://font.ubuntu.com/download/ubuntu-font-family-0.80.zip
+unzip ubuntu-font-family-0.80.zip
+mkdir ~/.fonts
+mv ubuntu-font-family-0.80/* ~/.fonts
+rm -r ubuntu-font-family-0.80
+rm ubuntu-font-family-0.80.zip
+mv .tmux.conf ~
+
+# Optional software, uncomment
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+sudo apt-get install -f
+# sudo apt-get install latexmk latex-beamer
