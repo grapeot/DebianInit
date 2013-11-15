@@ -1,16 +1,17 @@
 #! /bin/bash
 # Configure sources
-sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
-sudo bash -c "cat /etc/apt/sources.list | sed 's/wheezy /unstable /g' | sed 's/main/main contrib non-free/' | tee /etc/apt/sources.list"
-sudo apt-get update
+cp /etc/apt/sources.list /etc/apt/sources.list.bak
+cat /etc/apt/sources.list | sed 's/wheezy /unstable /g' | sed 's/main/main contrib non-free/' | tee /etc/apt/sources.list
+apt-get update
 
 # Configure development environment
-sudo apt-get install zsh git tig build-essential wget curl rsync 
+apt-get install zsh git tig build-essential wget curl rsync 
 # shell environment...
 chsh -s $(which zsh)
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
-cd ~
+pushd ~
 git clone https://github.com/rupa/z
+popd
 echo .zshrc...
 echo "alias ls='ls --color=auto -h'" >> ~/.zshrc
 echo "alias ll='ls -l'" >> ~/.zshrc
@@ -25,12 +26,12 @@ rm -rf 4576917
 mkdir ~/.vim
 pushd ~/.vim
 mkdir colors
-cd colors
+pushd colors
 wget http://files.werx.dk/wombat.vim
 mv wombat.vim wombat2.vim
 cat wombat2.vim | dos2unix > wombat.vim
 rm wombat2.vim
-cd ..
+popd
 wget "http://www.vim.org/scripts/download_script.php\?src_id\=17123" -O nerdtree.zip
 unzip nerdtree.zip
 rm nerdtree.zip
@@ -44,10 +45,10 @@ popd
 git config --global user.name "Yan Wang"
 git config --global user.email grapeot@gmail.com
 # ssh configuration (won't be effected until next restart)
-sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
+bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
 
 # Installing desktop environment 
-sudo apt-get install tmux python rsync zip unzip unrar xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto gnome-screensaver scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata
+apt-get install tmux python rsync zip unzip unrar xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto gnome-screensaver scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata
 wget http://font.ubuntu.com/download/ubuntu-font-family-0.80.zip
 unzip ubuntu-font-family-0.80.zip
 mkdir ~/.fonts
@@ -65,7 +66,7 @@ popd
 
 # Optional software, uncomment to install
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo dpkg -i google-chrome-stable_current_amd64.deb
-sudo apt-get install -f
+dpkg -i google-chrome-stable_current_amd64.deb
+apt-get install -f
 rm google-chrome-stable_current_amd64.deb
-# sudo apt-get install latexmk latex-beamer
+# apt-get install latexmk latex-beamer
