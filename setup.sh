@@ -1,7 +1,4 @@
 #! /bin/bash
-echo Please install vim and configure sudo manually
-su 
-
 echo Configure sources
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
 sudo bash -c "cat /etc/apt/sources.list | sed 's/wheezy /unstable /g' | sed 's/main/main contrib non-free/' | tee /etc/apt/sources.list"
