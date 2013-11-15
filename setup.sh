@@ -5,7 +5,7 @@ sudo bash -c "cat /etc/apt/sources.list | sed 's/wheezy /unstable /g' | sed 's/m
 sudo apt-get update
 
 # Configure development environment
-sudo apt-get install zsh git wget 
+sudo apt-get install zsh git wget dos2unix
 # shell environment...
 chsh -s $(which zsh)
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
