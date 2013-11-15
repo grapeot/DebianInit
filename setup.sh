@@ -68,7 +68,7 @@ popd
 
 # Optional software, uncomment to install
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-dpkg -i google-chrome-stable_current_amd64.deb
-apt-get install -f
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+sudo apt-get install -f
 rm google-chrome-stable_current_amd64.deb
 # apt-get install latexmk latex-beamer
