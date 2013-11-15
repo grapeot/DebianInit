@@ -1,13 +1,12 @@
 #! /bin/bash
-echo Configure sources
+# Configure sources
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
 sudo bash -c "cat /etc/apt/sources.list | sed 's/wheezy /unstable /g' | sed 's/main/main contrib non-free/' | tee /etc/apt/sources.list"
 sudo apt-get update
 
-echo Configure development environment
+# Configure development environment
 sudo apt-get install zsh git tig build-essential wget curl rsync 
-
-echo shell environment...
+# shell environment...
 chsh -s $(which zsh)
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
 cd ~
@@ -19,8 +18,7 @@ echo "alias gs='git status'" >> ~/.zshrc
 echo "alias gm='git commit -m'" >> ~/.zshrc
 echo "alias gma='git commit -a -m'" >> ~/.zshrc
 echo source ~/z/z.sh >> ~/.zshrc
-
-echo vim configuration...
+# vim configuration...
 git clone https://gist.github.com/4576917.git
 cat 4576917/vimrc | sed 's/consolas:h16/Inconsolata\\ 14/' > ~/.vimrc
 rm -rf 4576917
@@ -42,15 +40,13 @@ mv vim-latex*/* .
 rm -r vim-latex*
 rm latex.tar.gz
 popd
-
-echo git configuration
+# git configuration
 git config --global user.name "Yan Wang"
 git config --global user.email grapeot@gmail.com
-
-echo "ssh configuration (won't be effected until next restart)"
+# ssh configuration (won't be effected until next restart)
 sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
 
-echo Installing application software
+# Installing desktop environment 
 sudo apt-get install tmux python rsync zip unzip unrar xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto gnome-screensaver scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata
 wget http://font.ubuntu.com/download/ubuntu-font-family-0.80.zip
 unzip ubuntu-font-family-0.80.zip
@@ -67,7 +63,7 @@ rm Adwaita.zip
 ln -s /usr/share/themes/Adwaita/gtk-3.0 ~/.themes/Adwaita-X-dark/gtk-3.0
 popd
 
-# Optional software, uncomment
+# Optional software, uncomment to install
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 sudo apt-get install -f
