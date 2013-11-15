@@ -46,14 +46,14 @@
 # sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
 
 # echo Installing application software
-sudo apt-get install tmux python rsync zip unzip unrar xfce4 xfce4-power-manager xfce4-screenshooter evince pulseaudio cups cups-client ristretto gnome-screensaver scim scim-chinese ttf-wqy-microhei ttf-wqy-zenheifonts-inconsolata
-wget http://font.ubuntu.com/download/ubuntu-font-family-0.80.zip
-unzip ubuntu-font-family-0.80.zip
-mkdir ~/.fonts
-mv ubuntu-font-family-0.80/* ~/.fonts
-rm -r ubuntu-font-family-0.80
-rm ubuntu-font-family-0.80.zip
-mv .tmux.conf ~
+sudo apt-get install tmux python rsync zip unzip unrar xfce4 xfce4-power-manager xfce4-screenshooter evince pulseaudio cups cups-client ristretto gnome-screensaver scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata
+# wget http://font.ubuntu.com/download/ubuntu-font-family-0.80.zip
+# unzip ubuntu-font-family-0.80.zip
+# mkdir ~/.fonts
+# mv ubuntu-font-family-0.80/*.ttf ~/.fonts
+# rm -rf ubuntu-font-family-0.80
+# rm ubuntu-font-family-0.80.zip
+# cp .tmux.conf ~
 
 # Optional software, uncomment
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
