@@ -12,13 +12,15 @@ wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master
 pushd ~
 git clone https://github.com/rupa/z
 popd
-echo .zshrc...
-echo "alias ls='ls --color=auto -h'" >> ~/.zshrc
-echo "alias ll='ls -l'" >> ~/.zshrc
-echo "alias gs='git status'" >> ~/.zshrc
-echo "alias gm='git commit -m'" >> ~/.zshrc
-echo "alias gma='git commit -a -m'" >> ~/.zshrc
-echo source ~/z/z.sh >> ~/.zshrc
+# .zshrc
+cat << EOF >> ~/.zshrc
+alias ls='ls --color=auto -h'
+alias ll='ls -l'
+alias gs='git status'
+alias gm='git commit -m'
+alias gma='git commit -a -m'
+source ~/z/z.sh 
+EOF
 # vim configuration
 git clone https://gist.github.com/4576917.git
 cat 4576917/vimrc | sed 's/consolas:h16/Inconsolata\\ 14/' > ~/.vimrc
