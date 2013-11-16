@@ -1,17 +1,18 @@
 DebianInit
 ==========
 
-A script for fast deployment on Debian 7 with personal preferences encoded.
+A script for fast deployment of desktop environment on Debian 7 with personal preferences encoded.
 
 ## How to use
 
-* Install Debian 7 server version (without desktop environment)
-* Copy the following code to the terminal (not tested yet)
+* Install Debian 7 server (without desktop environment)
+* RUn the following code to the terminal
 
 ```
 su
-apt-get install vim sudo git
+apt-get install sudo git
 git clone https://github.com/grapeot/DebianInit
+visudo # grant your user the sudo privilege
 exit
 cd DebianInit
 ./setup.sh | tee logs
