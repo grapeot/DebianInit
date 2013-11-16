@@ -19,7 +19,7 @@ echo "alias gs='git status'" >> ~/.zshrc
 echo "alias gm='git commit -m'" >> ~/.zshrc
 echo "alias gma='git commit -a -m'" >> ~/.zshrc
 echo source ~/z/z.sh >> ~/.zshrc
-# vim configuration...
+# vim configuration
 git clone https://gist.github.com/4576917.git
 cat 4576917/vimrc | sed 's/consolas:h16/Inconsolata\\ 14/' > ~/.vimrc
 rm -rf 4576917
@@ -47,6 +47,8 @@ git config --global user.email grapeot@gmail.com
 git config --global push.default simple # eliminate the warning message of the new version git
 # ssh configuration (won't take effect until restart)
 sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
+# map caps to control
+sudo bash -c "cat /etc/default/keyboard | sed 's/XKBOPTIONS=\"\"/XKBOPTIONS=\"ctrl:nocaps\"/' | tee /etc/default/keyboard"
 
 # Installing desktop environment 
 sudo apt-get install tig build-essential curl rsync tmux python rsync zip unzip unrar python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto gnome-screensaver scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata
@@ -84,6 +86,5 @@ wget https://www.dropbox.com/download?dl=packages/debian/dropbox_1.6.0_amd64.deb
 sudo dpkg -i dropbox.deb
 sudo apt-get install -f
 rm google-chrome-stable_current_amd64.deb dropbox.deb
-Latex
-apt-get install latexmk latex-beamer
-
+# Latex
+# apt-get install latexmk latex-beamer
