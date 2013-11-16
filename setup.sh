@@ -76,7 +76,7 @@ cd ssokolow-quicktile*
 sudo ./setup.py install
 cd ..
 cp quicktile.cfg ~/.config
-# sudo rm -rf ssokolow-quicktile*
+sudo rm -rf ssokolow-quicktile*
 rm quicktile.zip
 # Chrome
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
