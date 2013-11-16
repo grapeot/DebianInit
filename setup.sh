@@ -68,7 +68,6 @@ popd
 
 # Optional software, uncomment to install
 # map caps to control
-sudo bash -c "cat /etc/default/keyboard | sed 's/XKBOPTIONS=\"\"/XKBOPTIONS=\"ctrl:nocaps\"/' | tee /etc/default/keyboard"
 # quicktile
 wget http://github.com/ssokolow/quicktile/zipball/master -O quicktile.zip
 unzip quicktile.zip
@@ -91,3 +90,5 @@ rm google-chrome-stable_current_amd64.deb dropbox.deb
 # apt-get install latexmk latex-beamer
 
 startx
+
+sudo bash -c "cat /etc/default/keyboard | sed 's/XKBOPTIONS=\"\"/XKBOPTIONS=\"ctrl:nocaps\"/' | tee /etc/default/keyboard"
