@@ -3,7 +3,7 @@ DebianInit
 
 A script for fast deployment of desktop environment on Debian 7 with personal preferences encoded.
 
-## How to use
+## Usage
 
 * Install Debian 7 server (without desktop environment)
 * RUn the following code to the terminal
