@@ -69,6 +69,9 @@ popd
 # Optional software, uncomment to install
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
+wget https://www.dropbox.com/download?dl=packages/debian/dropbox_1.6.0_amd64.deb -O dropbox.deb
+sudo dpkg -i dropbox.deb
 sudo apt-get install -f
-rm google-chrome-stable_current_amd64.deb
+rm google-chrome-stable_current_amd64.deb dropbox.deb
 # apt-get install latexmk latex-beamer
+
