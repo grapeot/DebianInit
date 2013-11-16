@@ -8,7 +8,6 @@ sudo apt-get update
 # Configure development environment
 sudo apt-get install -y -q vim zsh git wget dos2unix
 # shell environment...
-chsh -s $(which zsh)
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
 pushd ~
 git clone https://github.com/rupa/z
@@ -48,7 +47,8 @@ git config --global push.default simple # eliminate the warning message of the n
 sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
 
 # Installing desktop environment 
-sudo apt-get install -y -q tig build-essential curl rsync tmux python rsync zip unzip unrar python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata
+sudo apt-get install -y -q tig build-essential curl rsync tmux python rsync zip unzip unrar python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver
+xstart  # will crash if don't have this here, don't know why
 sudo apt-get remove -y xscreensaver
 wget http://font.ubuntu.com/download/ubuntu-font-family-0.80.zip
 unzip ubuntu-font-family-0.80.zip
@@ -85,8 +85,9 @@ sudo dpkg -i google-chrome-stable_current_amd64.deb
 wget https://www.dropbox.com/download?dl=packages/debian/dropbox_1.6.0_amd64.deb -O dropbox.deb
 sudo dpkg -i dropbox.deb
 sudo apt-get install -f -y
-sudo apt-get install -y -q gnome-screensaver
 rm google-chrome-stable_current_amd64.deb dropbox.deb
+# Change the default shell in the end because it requires user interactions
+chsh -s $(which zsh)
 # Latex
 # apt-get install latexmk latex-beamer
 
