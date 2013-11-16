@@ -1,11 +1,12 @@
 #! /bin/bash
 # Configure sources
+# export DEBIAN_FRONTEND=noninteractive
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
 sudo bash -c "cat /etc/apt/sources.list | sed 's/wheezy /unstable /g' | sed 's/main/main contrib non-free/' | tee /etc/apt/sources.list"
 sudo apt-get update
 
 # Configure development environment
-sudo apt-get install -y vim zsh git wget dos2unix
+sudo apt-get install -y -q vim zsh git wget dos2unix
 # shell environment...
 chsh -s $(which zsh)
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
@@ -28,9 +29,7 @@ pushd ~/.vim
 mkdir colors
 pushd colors
 wget http://files.werx.dk/wombat.vim
-mv wombat.vim wombat2.vim
-cat wombat2.vim | dos2unix > wombat.vim
-rm wombat2.vim
+dos2unix wombat.vim
 popd
 wget "http://www.vim.org/scripts/download_script.php\?src_id\=17123" -O nerdtree.zip
 unzip nerdtree.zip
@@ -50,13 +49,14 @@ sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh
 
 # Installing desktop environment 
 sudo apt-get install -y -q tig build-essential curl rsync tmux python rsync zip unzip unrar python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata
-sudo apt-get remove xscreensaver
+sudo apt-get remove -y xscreensaver
 wget http://font.ubuntu.com/download/ubuntu-font-family-0.80.zip
 unzip ubuntu-font-family-0.80.zip
 mkdir ~/.fonts
 mv ubuntu-font-family-0.80/*.ttf ~/.fonts
 rm -rf ubuntu-font-family-0.80
 rm ubuntu-font-family-0.80.zip
+fc-cache -fv
 cp .tmux.conf ~
 mkdir ~/.themes
 pushd ~/.themes
@@ -76,14 +76,14 @@ cd ssokolow-quicktile*
 sudo ./setup.py install
 cd ..
 cp quicktile.cfg ~/.config
-# sudo rm -rf ssokolow-quicktile*
+sudo rm -rf ssokolow-quicktile*
 rm quicktile.zip
 # Chrome
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo dpkg -i google-chrome-stable_current_amd64.deb
 # Dropbox
-# wget https://www.dropbox.com/download?dl=packages/debian/dropbox_1.6.0_amd64.deb -O dropbox.deb
-# sudo dpkg -i dropbox.deb
+wget https://www.dropbox.com/download?dl=packages/debian/dropbox_1.6.0_amd64.deb -O dropbox.deb
+sudo dpkg -i dropbox.deb
 sudo apt-get install -f -y
 sudo apt-get install -y -q gnome-screensaver
 rm google-chrome-stable_current_amd64.deb dropbox.deb
