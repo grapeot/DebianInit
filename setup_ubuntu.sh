@@ -48,7 +48,7 @@ sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh
 cp .tmux.conf ~
 
 # Installing desktop environment 
-sudo apt-get install -y -q tig build-essential curl rsync tmux python rsync zip unzip python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver xauth x11-apps openjdk-6-jre tightvncserver
+sudo apt-get install -y -q tig build-essential curl htop rsync tmux python zip unzip python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver xauth x11-apps openjdk-6-jre tightvncserver
 # Make the X11 work properly
 cat /etc/X11/Xwrapper.config | sed 's/console/anybody/' | sudo cat >> /etc/X11/Xwrapper.config
 sudo chown ubuntu:ubuntu ~/.Xauthority
