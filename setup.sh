@@ -49,7 +49,7 @@ git config --global push.default simple # eliminate the warning message of the n
 sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
 
 # Installing desktop environment 
-sudo apt-get install -y -q tig build-essential curl rsync tmux python rsync zip unzip unrar python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver
+sudo apt-get install -y -q tig build-essential curl rsync tmux python rsync zip unzip unrar python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto wicd scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver 
 sudo apt-get remove -y xscreensaver
 wget http://font.ubuntu.com/download/ubuntu-font-family-0.80.zip
 unzip ubuntu-font-family-0.80.zip
