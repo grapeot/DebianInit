@@ -44,9 +44,16 @@ git config --global user.email grapeot@gmail.com
 git config --global push.default simple # eliminate the warning message of the new version git
 # ssh configuration (won't take effect until restart)
 sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
+# Other tweaks
+cp .tmux.conf ~
 
 # Installing desktop environment 
-sudo apt-get install -y -q tig build-essential curl rsync tmux python rsync zip unzip python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto wicd ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver x-auth x11-appsopenjdk-6-jre
+sudo apt-get install -y -q tig build-essential curl rsync tmux python rsync zip unzip python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto wicd ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver xauth x11-apps openjdk-6-jre tightvncserver
+# Make the X11 work properly
+cat /etc/X11/Xwrapper.config | sed 's/console/anybody/' | sudo cat >> /etc/X11/Xwrapper.config
+sudo chown ubuntu:ubuntu ~/.Xauthority
+# Configure the fonts and themes
+sudo apt-get remove -y xscreensaver
 wget http://font.ubuntu.com/download/ubuntu-font-family-0.80.zip
 unzip ubuntu-font-family-0.80.zip
 mkdir ~/.fonts
@@ -54,7 +61,6 @@ mv ubuntu-font-family-0.80/*.ttf ~/.fonts
 rm -rf ubuntu-font-family-0.80
 rm ubuntu-font-family-0.80.zip
 fc-cache -fv
-cp .tmux.conf ~
 mkdir ~/.themes
 pushd ~/.themes
 wget http://gnome-look.org/CONTENT/content-files/150905-adwaita-x-dark-light-1.3.zip -O Adwaita.zip 
@@ -86,3 +92,5 @@ rm google-chrome-stable_current_amd64.deb dropbox.deb
 echo If this is an EC2 instance, change your password first so we can change the default shell:
 sudo passwd ubuntu
 chsh -s $(which zsh)
+# Launch the vnc server
+vncserver :1
