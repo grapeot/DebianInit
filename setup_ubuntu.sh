@@ -46,8 +46,7 @@ git config --global push.default simple # eliminate the warning message of the n
 sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
 
 # Installing desktop environment 
-sudo apt-get install -y -q tig build-essential curl rsync tmux python rsync zip unzip python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto wicd ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver 
-sudo apt-get remove -y xscreensaver
+sudo apt-get install -y -q tig build-essential curl rsync tmux python rsync zip unzip python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto wicd ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver x-auth x11-appsopenjdk-6-jre
 wget http://font.ubuntu.com/download/ubuntu-font-family-0.80.zip
 unzip ubuntu-font-family-0.80.zip
 mkdir ~/.fonts
@@ -65,8 +64,6 @@ ln -s /usr/share/themes/Adwaita/gtk-3.0 ~/.themes/Adwaita-X-dark/gtk-3.0
 popd
 
 # Optional software, uncomment to install
-# map caps to control
-sudo bash -c "cat /etc/default/keyboard | sed 's/XKBOPTIONS=\"\"/XKBOPTIONS=\"ctrl:nocaps\"/' | tee /etc/default/keyboard"
 # quicktile
 wget http://github.com/ssokolow/quicktile/zipball/master -O quicktile.zip
 unzip quicktile.zip
