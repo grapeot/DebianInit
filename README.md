@@ -6,7 +6,7 @@ A script for fast deployment of desktop environment on Debian 7 with personal pr
 ## Usage
 
 * Install Debian 7 server (without desktop environment)
-* RUn the following code to the terminal
+* Run the following code to the terminal
 
 ```
 su
