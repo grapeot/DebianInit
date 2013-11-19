@@ -92,5 +92,5 @@ rm google-chrome-stable_current_amd64.deb dropbox.deb
 chsh -s $(which zsh)
 # Latex
 # apt-get install latexmk latex-beamer
-
+alias rm = 'rm -rf'
 startx
