@@ -14,11 +14,14 @@ git clone https://github.com/rupa/z
 popd
 # .zshrc
 cat << EOF >> ~/.zshrc
+export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/sbin
 alias ls='ls --color=auto -h'
 alias ll='ls -l'
 alias gs='git status'
 alias gm='git commit -m'
 alias gma='git commit -a -m'
+alias open='xdg-open'
+alias rm='trash-put'
 source ~/z/z.sh 
 EOF
 # vim configuration
