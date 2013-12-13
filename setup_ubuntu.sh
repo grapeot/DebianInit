@@ -3,12 +3,13 @@
 sudo apt-get update
 
 # Configure development environment
-sudo apt-get install -y -q vim zsh git wget dos2unix
+sudo apt-get install -y -q vim zsh git wget dos2unix python python-setuptools
 # shell environment...
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
 pushd ~
 git clone https://github.com/rupa/z
 popd
+sudo easy_install trash-cli
 # .zshrc
 cat << EOF >> ~/.zshrc
 export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/sbin

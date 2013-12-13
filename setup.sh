@@ -6,12 +6,13 @@ sudo bash -c "cat /etc/apt/sources.list | sed 's/wheezy /unstable /g' | sed 's/m
 sudo apt-get update
 
 # Configure development environment
-sudo apt-get install -y -q vim zsh git wget dos2unix
+sudo apt-get install -y -q vim zsh git wget dos2unix python python-setuptools
 # shell environment...
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
 pushd ~
 git clone https://github.com/rupa/z
 popd
+sudo easy_install trash-cli
 # .zshrc
 cat << EOF >> ~/.zshrc
 export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/sbin
@@ -55,7 +56,7 @@ git config --global color.ui auto
 sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
 
 # Installing desktop environment 
-sudo apt-get install -y -q tig build-essential curl rsync tmux python zip unzip unrar htop python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto wicd scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver 
+sudo apt-get install -y -q tig build-essential curl rsync tmux zip unzip unrar htop python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto wicd scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver 
 sudo apt-get remove -y xscreensaver
 wget http://font.ubuntu.com/download/ubuntu-font-family-0.80.zip
 unzip ubuntu-font-family-0.80.zip
