@@ -15,6 +15,7 @@ popd
 # .zshrc
 cat << EOF >> ~/.zshrc
 export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/sbin
+export EDITOR=vim
 alias ls='ls --color=auto -h'
 alias ll='ls -l'
 alias gs='git status'

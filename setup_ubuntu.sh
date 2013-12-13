@@ -12,6 +12,7 @@ popd
 # .zshrc
 cat << EOF >> ~/.zshrc
 export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/sbin
+export EDITOR=vim
 alias ls='ls --color=auto -h'
 alias open='xdg-open'
 alias rm='trash-put'
