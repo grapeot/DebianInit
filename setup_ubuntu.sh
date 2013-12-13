@@ -19,6 +19,7 @@ alias ll='ls -l'
 alias gs='git status'
 alias gm='git commit -m'
 alias gma='git commit -a -m'
+set -o vi
 source ~/z/z.sh 
 EOF
 # vim configuration

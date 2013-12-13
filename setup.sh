@@ -22,6 +22,7 @@ alias gm='git commit -m'
 alias gma='git commit -a -m'
 alias open='xdg-open'
 alias rm='trash-put'
+set -o vi
 source ~/z/z.sh 
 EOF
 # vim configuration
