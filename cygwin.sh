@@ -8,10 +8,6 @@ while true; do
     esac
 done
 
-# Bootstrap...
-git clone https://github.com/grapeot/DebianInit.git
-cd DebianInit
-
 # Configure development environment
 # shell environment...
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
@@ -30,6 +26,7 @@ alias gc='git checkout'
 alias open='xdg-open'
 alias rm='trash-put'
 set -o vi
+setenv DISPLAY localhost:0
 source ~/z/z.sh 
 EOF
 # vim configuration
