@@ -61,5 +61,7 @@ cd ..
 wget http://downloads.sourceforge.net/sevenzip/7z920-x64.msi
 wget http://download.filezilla-project.org/FileZilla_3.7.3_win32-setup.exe
 wget https://www.dropbox.com/download?plat=win -O dropbox.exe
+wget http://downloads.sourceforge.net/project/console/console-devel/2.00/Console-2.00b148-Beta_32bit.zip?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fconsole%2F&ts=1389808706&use_mirror=softlayer-dal -O console2.zip
+wget ftp://ftp.vim.org/pub/vim/pc/gvim74.exe
 iexplore 'http://google.com/chrome/'
 explorer .
