@@ -7,6 +7,11 @@ while true; do
         * ) echo "Please answer y or n.";;
     esac
 done
+
+# Bootstrap...
+git clone https://github.com/grapeot/DebianInit.git
+cd DebianInit
+
 # Configure development environment
 # shell environment...
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
@@ -21,6 +26,7 @@ alias ll='ls -l'
 alias gs='git status'
 alias gm='git commit -m'
 alias gma='git commit -a -m'
+alias gc='git checkout'
 alias open='xdg-open'
 alias rm='trash-put'
 set -o vi
@@ -53,4 +59,9 @@ git config --global color.ui auto
 # ssh configuration (won't take effect until restart)
 sudo bash -c "cat /etc/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
 
-
+# install other windows programs
+wget http://downloads.sourceforge.net/sevenzip/7z920-x64.msi
+wget http://download.filezilla-project.org/FileZilla_3.7.3_win32-setup.exe
+wget https://www.dropbox.com/download?plat=win -O dropbox.exe
+iexplore 'http://google.com/chrome/'
+explorer .

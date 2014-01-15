@@ -22,6 +22,7 @@ alias ll='ls -l'
 alias gs='git status'
 alias gm='git commit -m'
 alias gma='git commit -a -m'
+alias gc='git checkout'
 alias open='xdg-open'
 alias rm='trash-put'
 set -o vi

@@ -17,3 +17,13 @@ exit
 cd DebianInit
 ./setup.sh | tee logs
 ```
+
+# Otherplatforms
+
+## ec2-ubuntu
+
+Also supports ubuntu on ec2 for scientific computing. Usage similar to debian.
+
+## cygwin
+
+Also supports cygwin for a fast linux-like environment. First download the 64bit installer from cygwin website, and then copy-paste the (one-line) content of `cygwin.cmd` to the `cmd.exe` in the same directory. The script to automatically install cygwin environment. Then run `cygwin.sh` for the configuration.
