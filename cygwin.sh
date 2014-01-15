@@ -54,9 +54,10 @@ git config --global user.name "Yan Wang"
 git config --global user.email grapeot@gmail.com
 git config --global color.ui auto
 # ssh configuration (won't take effect until restart)
-sudo bash -c "cat /etc/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
+cat /etc/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config
 
 # install other windows programs
+cd ..
 wget http://downloads.sourceforge.net/sevenzip/7z920-x64.msi
 wget http://download.filezilla-project.org/FileZilla_3.7.3_win32-setup.exe
 wget https://www.dropbox.com/download?plat=win -O dropbox.exe
