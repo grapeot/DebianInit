@@ -15,20 +15,9 @@ pushd ~
 git clone https://github.com/rupa/z
 popd
 # .zshrc
-cat << EOF >> ~/.zshrc
-export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/sbin
-alias ls='ls --color=auto -h'
-alias ll='ls -l'
-alias gs='git status'
-alias gm='git commit -m'
-alias gma='git commit -a -m'
-alias gc='git checkout'
-alias open='xdg-open'
-alias rm='trash-put'
-set -o vi
-setenv DISPLAY localhost:0
-source ~/z/z.sh 
-EOF
+git clone https://gist.github.com/8777085.git
+mv 8777085/.zshrc ~
+rm -rf 8777085
 # vim configuration
 git clone https://gist.github.com/4576917.git
 cat 4576917/vimrc | sed 's/consolas:h16/Inconsolata\\ 14/' > ~/.vimrc

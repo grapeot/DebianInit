@@ -11,20 +11,9 @@ git clone https://github.com/rupa/z
 popd
 sudo easy_install trash-cli
 # .zshrc
-cat << EOF >> ~/.zshrc
-export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/sbin
-export EDITOR=vim
-alias ls='ls --color=auto -h'
-alias open='xdg-open'
-alias rm='trash-put'
-alias ll='ls -l'
-alias gc='git checkout'
-alias gs='git status'
-alias gm='git commit -m'
-alias gma='git commit -a -m'
-set -o vi
-source ~/z/z.sh 
-EOF
+git clone https://gist.github.com/8777085.git
+mv 8777085/.zshrc ~
+rm -rf 8777085
 # vim configuration
 git clone https://gist.github.com/4576917.git
 cat 4576917/vimrc | sed 's/consolas:h16/Inconsolata\\ 14/' > ~/.vimrc
