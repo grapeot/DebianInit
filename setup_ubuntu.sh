@@ -40,8 +40,10 @@ git config --global user.email grapeot@gmail.com
 git config --global push.default simple # eliminate the warning message of the new version git
 # ssh configuration (won't take effect until restart)
 sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
-# Other tweaks
-cp .tmux.conf ~
+# tmux configuration
+git clone https://gist.github.com/9276405.git
+mv 9276405/.tmux.conf ~
+rm -rf 9276405
 
 # Installing desktop environment 
 sudo apt-get install -y -q tig build-essential curl htop rsync tmux python zip unzip python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver xauth x11-apps openjdk-6-jre tightvncserver
@@ -88,5 +90,3 @@ rm google-chrome-stable_current_amd64.deb dropbox.deb
 echo If this is an EC2 instance, change your password first so we can change the default shell:
 sudo passwd ubuntu
 chsh -s $(which zsh)
-# Launch the vnc server
-vncserver :1
