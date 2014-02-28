@@ -44,10 +44,17 @@ git config --global push.default simple # eliminate the warning message of the n
 git config --global color.ui auto
 # ssh configuration (won't take effect until restart)
 sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
+# tmux configuration
+git clone https://gist.github.com/9276405.git
+mv 9276405/.tmux.conf ~
+rm -rf 9276405
+# finish by installing some additional command line tools
+sudo apt-get install -y -q tig build-essential curl rsync tmux zip unzip unrar htop
 
 # Installing desktop environment 
-sudo apt-get install -y -q tig build-essential curl rsync tmux zip unzip unrar htop python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto wicd scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver 
+sudo apt-get install -y -q python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto wicd scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver 
 sudo apt-get remove -y xscreensaver
+# fonts
 wget http://font.ubuntu.com/download/ubuntu-font-family-0.80.zip
 unzip ubuntu-font-family-0.80.zip
 mkdir ~/.fonts
@@ -55,7 +62,7 @@ mv ubuntu-font-family-0.80/*.ttf ~/.fonts
 rm -rf ubuntu-font-family-0.80
 rm ubuntu-font-family-0.80.zip
 fc-cache -fv
-cp .tmux.conf ~
+# theme
 mkdir ~/.themes
 pushd ~/.themes
 wget http://gnome-look.org/CONTENT/content-files/150905-adwaita-x-dark-light-1.3.zip -O Adwaita.zip 
