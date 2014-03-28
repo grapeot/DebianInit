@@ -26,4 +26,4 @@ Also supports ubuntu on ec2 for scientific computing. Usage similar to debian.
 
 ## cygwin
 
-Also supports cygwin for a fast linux-like environment. First download the 64bit installer from cygwin website, and then download the `cgywin.cmd` to the same folder. Double to run.
+Also supports cygwin for a fast linux-like environment. First download the 64bit installer from cygwin website, and then download the `cgywin.cmd` to the same folder. Double click to run. [`chocolatey`](https://chocolatey.org/) will be installed as the package management system.
