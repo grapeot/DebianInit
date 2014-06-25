@@ -16,7 +16,7 @@ git clone https://github.com/rupa/z
 popd
 # .dotfiles
 pushd ~
-git clone https://github.com/grapeot/.dotfiles
+git clone --recursive https://github.com/grapeot/.dotfiles
 # .zshrc
 ln -s .dotfiles/.zshrc .zshrc
 # .vimrc
