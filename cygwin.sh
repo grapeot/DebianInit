@@ -18,11 +18,11 @@ popd
 pushd ~
 git clone --recursive https://github.com/grapeot/.dotfiles
 # .zshrc
+rm .zshrc
 ln -s .dotfiles/.zshrc .zshrc
 # .vimrc
 ln -s .dotfiles/.vim .vim
 ln -s .dotfiles/.vimrc .vimrc
-cat ~/.vimrc | sed 's/consolas:h16/Inconsolata\\ 14/' > ~/.vimrc # patch for debian GUI
 # .tmux.conf
 ln -s .dotfiles/.tmux.conf .tmux.conf
 popd
