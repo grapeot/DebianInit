@@ -2,7 +2,7 @@
 # Configure sources
 # export DEBIAN_FRONTEND=noninteractive
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak
-sudo cat /etc/apt/sources.list | sed 's/wheezy /unstable /g' | sed 's/main/main contrib non-free/' | tee /etc/apt/sources.list
+cat /etc/apt/sources.list | sed 's/wheezy /unstable /g' | sed 's/main/main contrib non-free/' | sudo tee /etc/apt/sources.list
 sudo apt-get update
 
 # Configure development environment
