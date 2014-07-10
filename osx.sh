@@ -20,11 +20,13 @@ popd
 # .dotfiles and deploy
 pushd ~
 git clone --recursive https://github.com/.dotfiles
-rm -rf .zshrc .vim .vimrc .tmux.conf
-ln -s .dotfiles/.zshrc .zshrc
-ln -s .dotfiles/.vim .vim
-ln -s .dotfiles/.vimrc .vimrc
+./.dotfiles/deploy_mac.sh
 popd
+
+# git configuration
+git config --global user.name "Yan Wang"
+git config --global user.email grapeot@gmail.com
+git config --global color.ui auto
 
 # Other apps
 # Skim
