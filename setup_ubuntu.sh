@@ -3,7 +3,7 @@
 sudo apt-get update
 
 # Configure development environment
-sudo apt-get install -y -q vim zsh git wget dos2unix python python-setuptools
+sudo apt-get install -y -q vim zsh git wget dos2unix python python-setuptools sshfs
 # shell environment...
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
 pushd ~
@@ -67,3 +67,8 @@ rm google-chrome-stable_current_amd64.deb dropbox.deb
 echo If this is an EC2 instance, change your password first so we can change the default shell:
 sudo passwd ubuntu
 chsh -s $(which zsh)
+
+# Mount an sshfs specially for spot requests
+sudo adduser ubuntu fuse
+mkdir ~/Documents/Work
+sshfs -o idmap=user grapeot@nobody.grapeot.me:/home/Dropbox ~/Documents/Work
