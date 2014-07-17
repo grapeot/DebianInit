@@ -70,5 +70,5 @@ chsh -s $(which zsh)
 
 # Mount an sshfs specially for spot requests
 sudo adduser ubuntu fuse
-mkdir ~/Documents/Work
-sshfs -o idmap=user grapeot@nobody.grapeot.me:/home/Dropbox ~/Documents/Work
+mkdir ~/Dropbox
+sshfs -o idmap=user grapeot@nobody.grapeot.me:/home/grapeot/Dropbox ~/Dropbox
