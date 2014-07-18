@@ -25,7 +25,7 @@ git config --global color.ui auto
 # ssh configuration (won't take effect until restart)
 sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
 # finish by installing some additional command line tools
-sudo apt-get install -y -q tig build-essential curl rsync tmux zip unzip unrar htop
+sudo apt-get install -y -q tig build-essential curl rsync tmux zip unzip unrar htop parallel
 
 # Installing desktop environment 
 sudo apt-get install -y -q python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto wicd scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver 
