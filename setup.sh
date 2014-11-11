@@ -28,7 +28,7 @@ sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh
 sudo apt-get install -y -q tig build-essential curl rsync tmux zip unzip unrar htop parallel
 
 # Installing desktop environment 
-sudo apt-get install -y -q python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto wicd scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver freerdp-x11 remmina
+sudo apt-get install -y -q python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince pulseaudio cups cups-client ristretto wicd scim scim-pinyin ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver freerdp-x11 remmina vlc
 sudo apt-get remove -y xscreensaver
 # fonts
 wget http://font.ubuntu.com/download/ubuntu-font-family-0.80.zip
