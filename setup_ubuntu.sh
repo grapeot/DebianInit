@@ -3,13 +3,12 @@
 sudo apt-get update
 
 # Configure development environment
-sudo apt-get install -y -q vim zsh git wget dos2unix python python-setuptools sshfs parallel
+sudo apt-get install -y -q vim zsh git wget dos2unix python python-setuptools parallel tig build-essential curl htop rsync tmux zip unzip openjdk-6-jre pkg-config
 # shell environment...
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
 pushd ~
 git clone https://github.com/rupa/z
 popd
-sudo easy_install trash-cli
 # .dotfiles
 pushd ~
 git clone --recursive https://github.com/grapeot/.dotfiles
@@ -21,8 +20,9 @@ git config --global user.email grapeot@gmail.com
 git config --global push.default simple # eliminate the warning message of the new version git
 # ssh configuration (won't take effect until restart)
 sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
-# more packages
-sudo apt-get install -y -q tig build-essential curl htop rsync tmux python zip unzip openjdk-6-jre 
+# get pip and install trash-cli
+curl https://bootstrap.pypa.io/get-pip.py | sudo python
+sudo pip install trash-cli
 
 # # Installing desktop environment 
 # sudo apt-get install -y -q python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince ristretto ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver xauth x11-apps tightvncserver
@@ -71,7 +71,5 @@ echo If this is an EC2 instance, change your password first so we can change the
 sudo passwd ubuntu
 chsh -s $(which zsh)
 
-# Mount an sshfs specially for spot requests
-sudo adduser ubuntu fuse
-mkdir ~/Dropbox
-sshfs -o idmap=user grapeot@nobody.grapeot.me:/home/grapeot/Dropbox ~/Dropbox
+# Mount s3fs specially for spot requests, add your own credentials here
+# ./install_fuse.sh
