@@ -5,19 +5,20 @@ if [ ! -e ~/.passwd-s3fs ]; then
 
     wget http://downloads.sourceforge.net/project/fuse/fuse-2.X/2.9.3/fuse-2.9.3.tar.gz
     tar xzf fuse-2.9.3.tar.gz
-    pushd fuse-2.9.3
+    cd fuse-2.9.3
     ./configure --prefix=/usr/local
     make -j && sudo make install
     export PKG_CONFIG_PATH=/usr/local/lib/pkgconfig
     ldconfig
     modprobe fuse
-    popd
+    cd ..
 
     wget https://s3fs.googlecode.com/files/s3fs-1.74.tar.gz
     tar xzf s3fs-1.74.tar.gz
-    pushd s3fs-1.74
+    cd s3fs-1.74
     ./configure --prefix=/usr/local
     make -j && sudo make install
+    cd ..
 
     echo AWS_ACCESS_KEY_ID:AWS_SECRET_ACCESS_KEY > ~/.passwd-s3fs
     chmod 600 ~/.passwd-s3fs
