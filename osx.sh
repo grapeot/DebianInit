@@ -35,3 +35,6 @@ git config --global color.ui auto
 wget http://downloads.sourceforge.net/project/skim-app/Skim/Skim-1.4.9/Skim-1.4.9.dmg?r=http%3A%2F%2Fskim-app.sourceforge.net%2F&ts=1404764983&use_mirror=hivelocity
 # Chrome
 wget https://dl.google.com/chrome/mac/stable/GGRM/googlechrome.dmg
+
+# system configuration
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE  # turn off the .DS_Store
