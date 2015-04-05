@@ -25,6 +25,12 @@ ln -s .dotfiles/.vim .vim
 ln -s .dotfiles/.vimrc .vimrc
 # .tmux.conf
 ln -s .dotfiles/.tmux.conf .tmux.conf
+cat .tmux.conf | grep -v 'powerline' | tee .tmux.conf  # Windows cannot use powerline?
+toSub="$(cygpath -H)/$(whoami)"
+toSub=$(echo $toSub | sed 's/\//\\\//g')
+homeline=$(cat /etc/passwd | grep "^$(whoami):" | sed "s/[^:]*:[^:]*\$/$toSub:\/bin\/zsh/")
+cat /etc/passwd | grep -v "^$(whoami):" | tee /etc/passwd
+echo $homeline >> /etc/passwd
 popd
 # git configuration
 git config --global user.name "Yan Wang"
