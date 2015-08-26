@@ -3,11 +3,10 @@
 # Install XCode and its command line tool from the Apple Developer website
 
 # Install brew
-ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # Install some utilitis
 brew install python wget curl tmux git
-brew install vim --with-python --with-ruby --with-perl
 brew install macvim --env-std --override-system-vim
 
 # Scientific Development Environment
@@ -21,20 +20,24 @@ popd
 
 # .dotfiles and deploy
 pushd ~
-git clone --recursive https://github.com/.dotfiles
+git clone --recursive https://github.com/grapeot/.dotfiles
 ./.dotfiles/deploy_mac.sh
 popd
 
-# git configuration
+git configuration
 git config --global user.name "Yan Wang"
 git config --global user.email grapeot@gmail.com
 git config --global color.ui auto
 
 # Other apps
 # Skim
-wget http://downloads.sourceforge.net/project/skim-app/Skim/Skim-1.4.9/Skim-1.4.9.dmg?r=http%3A%2F%2Fskim-app.sourceforge.net%2F&ts=1404764983&use_mirror=hivelocity
+wget http://downloads.sourceforge.net/project/skim-app/Skim/Skim-1.4.9/Skim-1.4.9.dmg?r=http%3A%2F%2Fskim-app.sourceforge.net%2F&ts=1404764983&use_mirror=hivelocity -O skim.dmg
 # Chrome
 wget https://dl.google.com/chrome/mac/stable/GGRM/googlechrome.dmg
+# Powerline fonts
+git clone https://github.com/powerline/fonts
+# Spectacle
+wget https://s3.amazonaws.com/spectacle/downloads/Spectacle+0.8.10.zip
 
 # system configuration
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE  # turn off the .DS_Store
