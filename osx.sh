@@ -1,12 +1,13 @@
-# Given Mac OS requries a lot of manual configuration, this file acts more like a check list
-
 # Install XCode and its command line tool from the Apple Developer website
+
+echo "\!\!\!PLEASE FIRST INSTALL XCODE AND ITS COMMANDLINE TOOL BEFORE RUNNING THIS SCRIPT\!\!\!"
+echo "OTHERWISE A LOT OF THINGS WON'T WORK"
 
 # Install brew
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # Install some utilitis
-brew install python wget curl tmux git ssh-copy-id wget trash
+brew install python wget curl tmux git ssh-copy-id wget trash ssh-copy-id
 sudo easy_install pip
 brew install macvim --env-std --override-system-vim
 
