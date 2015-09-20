@@ -6,7 +6,8 @@
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # Install some utilitis
-brew install python wget curl tmux git ssh-copy-id
+brew install python wget curl tmux git ssh-copy-id wget trash
+sudo easy_install pip
 brew install macvim --env-std --override-system-vim
 
 # Scientific Development Environment
@@ -39,6 +40,14 @@ wget https://dl.google.com/chrome/mac/stable/GGRM/googlechrome.dmg
 git clone https://github.com/powerline/fonts
 # Spectacle
 wget https://s3.amazonaws.com/spectacle/downloads/Spectacle+0.8.10.zip
+# Menumeters
+wget http://www.ragingmenace.com/software/download/MenuMeters.dmg
+# Dropbox
+wget https://www.dropbox.com/download\?plat\=mac -O dropbox.dmg
+# Alfred
+wget https://cachefly.alfredapp.com/Alfred_2.7.2_407.zip
+# Sogou pinyin
+wget http://pinyin.sogou.com/mac/softdown.php -O sogou.dmg
 
 # system configuration
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE  # turn off the .DS_Store
