@@ -6,28 +6,29 @@
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # Install some utilitis
-brew install python wget curl tmux git
+brew install python wget curl tmux git ssh-copy-id
 brew install macvim --env-std --override-system-vim
 
 # Scientific Development Environment
 pip install numpy scipy matplotlib
 
+cd ~
+
 # oh-my-zsh and z
 curl -L http://install.ohmyz.sh | sh
-pushd ~
 git clone https://github.com/rupa/z
-popd
 
 # .dotfiles and deploy
-pushd ~
 git clone --recursive https://github.com/grapeot/.dotfiles
 ./.dotfiles/deploy_mac.sh
-popd
+
+cd debianinit
 
 git configuration
 git config --global user.name "Yan Wang"
 git config --global user.email grapeot@gmail.com
 git config --global color.ui auto
+git config --global core.fileMode false
 
 # Other apps
 # Skim
