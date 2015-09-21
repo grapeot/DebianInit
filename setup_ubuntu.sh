@@ -18,6 +18,8 @@ popd
 git config --global user.name "Yan Wang"
 git config --global user.email grapeot@gmail.com
 git config --global push.default simple # eliminate the warning message of the new version git
+git config --global color.ui auto
+git config --global core.fileMode false
 # ssh configuration (won't take effect until restart)
 sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
 # get pip and install trash-cli

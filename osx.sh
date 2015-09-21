@@ -26,11 +26,12 @@ git clone --recursive https://github.com/grapeot/.dotfiles
 
 cd debianinit
 
-git configuration
+# git configuration
 git config --global user.name "Yan Wang"
 git config --global user.email grapeot@gmail.com
 git config --global color.ui auto
 git config --global core.fileMode false
+git config --global push.default simple
 
 # Other apps
 # Skim
