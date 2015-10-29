@@ -1,21 +1,9 @@
-echo Make sure you have installed vim, zsh, git, wget and dos2unix
-while true; do
-    read -p "Ready to continue (y/n): " yn
-    case $yn in
-        [Yy]* ) break;;
-        [Nn]* ) exit;;
-        * ) echo "Please answer y or n.";;
-    esac
-done
-
 # Configure development environment
 # shell environment...
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
-pushd ~
+cd ~
 git clone https://github.com/rupa/z
-popd
 # .dotfiles
-pushd ~
 git clone --recursive https://github.com/grapeot/.dotfiles
 # .zshrc
 rm .zshrc
@@ -26,12 +14,6 @@ ln -s .dotfiles/.vimrc .vimrc
 # .tmux.conf
 ln -s .dotfiles/.tmux.conf .tmux.conf
 cat .tmux.conf | grep -v 'powerline' | tee .tmux.conf  # Windows cannot use powerline?
-toSub="$(cygpath -H)/$(whoami)"
-toSub=$(echo $toSub | sed 's/\//\\\//g')
-homeline=$(cat /etc/passwd | grep "^$(whoami):" | sed "s/[^:]*:[^:]*\$/$toSub:\/bin\/zsh/")
-cat /etc/passwd | grep -v "^$(whoami):" | tee /etc/passwd
-echo $homeline >> /etc/passwd
-popd
 # git configuration
 git config --global user.name "Yan Wang"
 git config --global user.email grapeot@gmail.com
