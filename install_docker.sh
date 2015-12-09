@@ -5,5 +5,8 @@ sudo apt-get purge lxc-docker
 sudo apt-get install -y linux-image-extra-$(uname -r)
 sudo apt-get install -y docker-engine
 
+# add the current user to docker group
+sudo usermod -aG docker "$USER"
+
 # verify whether the installation is successful.
 sudo docker run hello-world
