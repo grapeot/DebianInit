@@ -69,8 +69,6 @@ sudo pip install trash-cli
 # rm google-chrome-stable_current_amd64.deb dropbox.deb
 
 # Change the default shell in the end because it requires user interactions
-echo If this is an EC2 instance, change your password first so we can change the default shell:
-sudo passwd ubuntu
 chsh -s $(which zsh)
 
 # Mount s3fs specially for spot requests, add your own credentials here
