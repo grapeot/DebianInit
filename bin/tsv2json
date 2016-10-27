@@ -1,0 +1,3 @@
+#!zsh
+
+python C:/cygwin64/bin/tsv2json.py
