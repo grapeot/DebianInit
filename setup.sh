@@ -43,7 +43,7 @@ fc-cache -fv
 # theme
 mkdir ~/.themes
 pushd ~/.themes
-wget http://gnome-look.org/CONTENT/content-files/150905-adwaita-x-dark-light-1.3.zip -O Adwaita.zip 
+wget https://dl.opendesktop.org/api/files/download/id/1460761610/150905-adwaita-x-dark-light-1.3.zip -O Adwaita.zip 
 unzip Adwaita.zip
 rm Adwaita.zip
 ln -s /usr/share/themes/Adwaita/gtk-3.0 ~/.themes/Adwaita-X-dark/gtk-3.0
