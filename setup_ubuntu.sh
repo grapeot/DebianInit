@@ -3,7 +3,7 @@
 sudo apt-get update
 
 # Configure development environment
-sudo apt-get install -y -q vim zsh git wget dos2unix python python-setuptools parallel tig build-essential curl htop rsync tmux zip unzip openjdk-6-jre pkg-config
+sudo apt-get install -y -q vim zsh git wget dos2unix python python-setuptools parallel tig build-essential curl htop rsync tmux zip unzip pkg-config
 # shell environment...
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
 pushd ~
@@ -42,7 +42,7 @@ sudo pip install trash-cli
 # fc-cache -fv
 # mkdir ~/.themes
 # pushd ~/.themes
-# wget http://gnome-look.org/CONTENT/content-files/150905-adwaita-x-dark-light-1.3.zip -O Adwaita.zip 
+# wget https://dl.opendesktop.org/api/files/download/id/1460761610/150905-adwaita-x-dark-light-1.3.zip -O Adwaita.zip 
 # unzip Adwaita.zip
 # rm Adwaita.zip
 # ln -s /usr/share/themes/Adwaita/gtk-3.0 ~/.themes/Adwaita-X-dark/gtk-3.0
