@@ -50,5 +50,5 @@ sudo pip install \
       tornado
 # Clone and build
 git clone --recursive https://github.com/caffe2/caffe2.git && cd caffe2
-make && cd build && sudo make install
+make -j4 && cd build && sudo make install -j4
 python -c 'from caffe2.python import core' 2>/dev/null && echo "Success" || echo "Failure"
