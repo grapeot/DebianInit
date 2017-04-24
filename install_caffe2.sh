@@ -52,3 +52,8 @@ sudo pip install \
 git clone --recursive https://github.com/caffe2/caffe2.git && cd caffe2
 make -j4 && cd build && sudo make install -j4
 python -c 'from caffe2.python import core' 2>/dev/null && echo "Success" || echo "Failure"
+
+echo 'export PYTHONPATH=/usr/local:$PYTHONPATH" >> ~/.zshrc
+echp 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> ~/.zshrc
+export PYTHONPATH=/usr/local:$PYTHONPATH
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
