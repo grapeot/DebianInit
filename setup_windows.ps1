@@ -16,7 +16,10 @@ echo "Don't forget to add the cygwin bin path to the system PATH."
 
 # Install other dev tools
 choco install -y 7zip vim python3
+$wc.DownloadFile('https://bootstrap.pypa.io/get-pip.py', 'get-pip.py')
+C:\Python36\python.exe .\get-pip.py
 rm .\installChocolatey.ps1
+rm .\get-pip.py
 
 # Fix the windows version of .dotfile
 # To make symbolic links, we need to import an API from kernel32.dll
