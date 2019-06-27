@@ -16,7 +16,7 @@ git clone --recursive https://github.com/grapeot/.dotfiles
 popd
 # git configuration
 git config --global user.name "Yan Wang"
-git config --global user.email grapeot@gmail.com
+git config --global user.email grapeot@outlook.com
 git config --global push.default simple # eliminate the warning message of the new version git
 git config --global color.ui auto
 git config --global core.fileMode false
@@ -27,7 +27,7 @@ curl https://bootstrap.pypa.io/get-pip.py | sudo python
 sudo pip install trash-cli
 
 # # Installing desktop environment 
-# sudo apt-get install -y -q python-gtk2 python-wnck python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince ristretto ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver xauth x11-apps tightvncserver
+# sudo apt-get install -y -q python-gtk2 python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince ristretto ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver xauth x11-apps tightvncserver
 # # Make the X11 work properly
 # cat /etc/X11/Xwrapper.config | sed 's/console/anybody/' | sudo cat >> /etc/X11/Xwrapper.config
 # sudo chown ubuntu:ubuntu ~/.Xauthority
