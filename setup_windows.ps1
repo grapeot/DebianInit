@@ -1,10 +1,8 @@
-$wc = New-Object System.Net.WebClient
-$wc.DownloadFile('https://www.cygwin.com/setup-x86_64.exe', 'setup-x86_64.exe')
-$wc.DownloadFile('https://raw.githubusercontent.com/grapeot/DebianInit/master/cygwin.sh', 'cygwin.sh')
-
+Invoke-WebRequest -Uri 'https://www.cygwin.com/setup-x86_64.exe' -OutFile 'setup-x86_64.exe'
+Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/grapeot/DebianInit/master/cygwin.sh' -OutFile 'cygwin.sh'
 
 # We use windows version for better compatibility with VSOnline and https.
-$wc.DownloadFile('https://chocolatey.org/install.ps1', 'installChocolatey.ps1')
+Invoke-WebRequest -Uri 'https://chocolatey.org/install.ps1' -OutFile 'installChocolatey.ps1'
 .\installChocolatey.ps1
 choco install -y git
 
@@ -16,7 +14,7 @@ echo "Don't forget to add the cygwin bin path to the system PATH."
 
 # Install other dev tools
 choco install -y 7zip vim python3
-$wc.DownloadFile('https://bootstrap.pypa.io/get-pip.py', 'get-pip.py')
+Invoke-WebRequest -Uri 'https://bootstrap.pypa.io/get-pip.py' -OutFile 'get-pip.py'
 C:\Python36\python.exe .\get-pip.py
 rm .\installChocolatey.ps1
 rm .\get-pip.py
@@ -37,6 +35,6 @@ namespace mklink
     }
 }
 "@
-[mklink.symlink]::CreateSymbolicLink('c:/Users/grapeot/.vim',"c:/Users/grapeot/.dotfiles/.vim",1)
-[mklink.symlink]::CreateSymbolicLink('c:/Users/grapeot/.vimrc',"c:/Users/grapeot/.dotfiles/.vimrc",0)
-[mklink.symlink]::CreateSymbolicLink('c:/Users/grapeot/.zshrc',"c:/Users/grapeot/.dotfiles/.zshrc",0)
+[mklink.symlink]::CreateSymbolicLink("$HOME/.vim","$HOME/.dotfiles/.vim",1)
+[mklink.symlink]::CreateSymbolicLink("$HOME/.vimrc","$HOME/.dotfiles/.vimrc",0)
+[mklink.symlink]::CreateSymbolicLink("$HOME/.zshrc","$HOME/.dotfiles/.zshrc",0)
