@@ -3,7 +3,7 @@
 sudo apt-get update
 
 # Configure development environment
-sudo apt-get install -y -q vim zsh git wget dos2unix python python-setuptools parallel tig build-essential curl htop rsync tmux zip unzip pkg-config
+sudo apt-get install -y -q vim zsh git wget dos2unix python3 python3-pip parallel tig build-essential curl htop rsync tmux zip unzip pkg-config
 # shell environment...
 wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
 pushd ~
@@ -22,9 +22,8 @@ git config --global color.ui auto
 git config --global core.fileMode false
 # ssh configuration (won't take effect until restart)
 sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
-# get pip and install trash-cli
-curl https://bootstrap.pypa.io/get-pip.py | sudo python
-sudo pip install trash-cli
+# install trash-cli
+sudo pip3 install trash-cli virtualenv
 
 # # Installing desktop environment 
 # sudo apt-get install -y -q python-gtk2 python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince ristretto ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver xauth x11-apps tightvncserver
