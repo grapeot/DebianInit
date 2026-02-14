@@ -28,28 +28,16 @@ cd debianinit
 
 # git configuration
 git config --global user.name "Yan Wang"
-git config --global user.email grapeot@gmail.com
+git config --global user.email grapeot@outlook.com
 git config --global color.ui auto
 git config --global core.fileMode false
 git config --global push.default simple
 
 # Other apps
-# Skim
-wget http://downloads.sourceforge.net/project/skim-app/Skim/Skim-1.4.9/Skim-1.4.9.dmg?r=http%3A%2F%2Fskim-app.sourceforge.net%2F&ts=1404764983&use_mirror=hivelocity -O skim.dmg
-# Chrome
-wget https://dl.google.com/chrome/mac/stable/GGRM/googlechrome.dmg
 # Powerline fonts
 git clone https://github.com/powerline/fonts
 # Spectacle
 wget https://s3.amazonaws.com/spectacle/downloads/Spectacle+0.8.10.zip
-# Menumeters
-wget http://www.ragingmenace.com/software/download/MenuMeters.dmg
-# Dropbox
-wget https://www.dropbox.com/download\?plat\=mac -O dropbox.dmg
-# Alfred
-wget https://cachefly.alfredapp.com/Alfred_2.7.2_407.zip
-# Sogou pinyin
-wget http://pinyin.sogou.com/mac/softdown.php -O sogou.dmg
 
 # system configuration
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool TRUE  # turn off the .DS_Store
