@@ -27,57 +27,64 @@ fi
 section "Stage 2: App Selection"
 
 # Screen 1 — GUI Applications (brew cask)
+CASK_ITEMS=(
+    "Claude (claude)"
+    "ChatGPT (chatgpt)"
+    "ChatGPT Atlas (chatgpt-atlas)"
+    "Cursor (cursor)"
+    "Codex (codex)"
+    "LM Studio (lm-studio)"
+    "Ollama (ollama-app)"
+    "VS Code (visual-studio-code)"
+    "Android Studio (android-studio)"
+    "Docker (docker-desktop)"
+    "iTerm (iterm2)"
+    "Telegram (telegram)"
+    "Zoom (zoom)"
+    "DaVinci Resolve [special handler]"
+    "Gyroflow (gyroflow)"
+    "BambuStudio (bambu-studio)"
+    "OpenSCAD (openscad)"
+    "Roon (roon)"
+    "Tailscale (tailscale-app)"
+    "Windows App (windows-app)"
+    "1Password (1password)"
+    "Firefox (firefox)"
+    "Rectangle (rectangle)"
+    "Antigravity (antigravity)"
+    "Antigravity Tools [GitHub release]"
+)
+CASK_SELECTED=$(IFS=,; echo "${CASK_ITEMS[*]}")
 CASK_CHOICES=$(gum choose --no-limit \
-    --header "Select GUI Applications to install (brew cask):" \
-    "Claude (claude)" \
-    "ChatGPT (chatgpt)" \
-    "ChatGPT Atlas (chatgpt-atlas)" \
-    "Cursor (cursor)" \
-    "Codex (codex)" \
-    "LM Studio (lm-studio)" \
-    "Ollama (ollama-app)" \
-    "VS Code (visual-studio-code)" \
-    "Android Studio (android-studio)" \
-    "Docker (docker-desktop)" \
-    "iTerm (iterm2)" \
-    "Telegram (telegram)" \
-    "Zoom (zoom)" \
-    "DaVinci Resolve [special handler]" \
-    "Gyroflow (gyroflow)" \
-    "BambuStudio (bambu-studio)" \
-    "OpenSCAD (openscad)" \
-    "Roon (roon)" \
-    "Tailscale (tailscale-app)" \
-    "Windows App (windows-app)" \
-    "1Password (1password)" \
-    "Firefox (firefox)" \
-    "Rectangle (rectangle)" \
-    "Antigravity (antigravity)" \
-    "Antigravity Tools [GitHub release]" \
+    --header "Select GUI Applications to install (deselect to skip):" \
+    --selected "$CASK_SELECTED" \
+    "${CASK_ITEMS[@]}" \
     || true)
 
 # Screen 2 — CLI Tools & Libraries (brew formula)
+FORMULA_ITEMS=(
+    "ffmpeg" "sox" "zbar" "pandoc" "marp-cli"
+    "borgbackup" "cmake" "go" "swig"
+    "astrometry-net" "argyll-cms"
+)
+FORMULA_SELECTED=$(IFS=,; echo "${FORMULA_ITEMS[*]}")
 FORMULA_CHOICES=$(gum choose --no-limit \
-    --header "Select CLI Tools & Libraries to install (brew formula):" \
-    "ffmpeg" \
-    "sox" \
-    "zbar" \
-    "pandoc" \
-    "marp-cli" \
-    "borgbackup" \
-    "cmake" \
-    "go" \
-    "swig" \
-    "astrometry-net" \
-    "argyll-cms" \
+    --header "Select CLI Tools & Libraries to install (deselect to skip):" \
+    --selected "$FORMULA_SELECTED" \
+    "${FORMULA_ITEMS[@]}" \
     || true)
 
 # Screen 3 — App Store
+MAS_ITEMS=(
+    "Compressor (mas 424390742)"
+    "Photomator (mas 1444636541)"
+    "Xcode [manual - open App Store]"
+)
+MAS_SELECTED=$(IFS=,; echo "${MAS_ITEMS[*]}")
 MAS_CHOICES=$(gum choose --no-limit \
-    --header "Select App Store apps to install (requires Apple ID login):" \
-    "Compressor (mas 424390742)" \
-    "Photomator (mas 1444636541)" \
-    "Xcode [manual - open App Store]" \
+    --header "Select App Store apps to install (deselect to skip):" \
+    --selected "$MAS_SELECTED" \
+    "${MAS_ITEMS[@]}" \
     || true)
 
 # ── Stage 3: Installation ────────────────────────────────────────────────────
