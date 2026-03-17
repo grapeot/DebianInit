@@ -44,6 +44,7 @@ check_cmd "rg"       "ripgrep"
 check_cmd "fd"       "fd"
 check_cmd "lazygit"  "lazygit"
 check_cmd "gh"       "GitHub CLI"
+check_cmd "zellij"   "zellij"
 check_cmd "gum"      "gum"
 
 # uv lives in ~/.cargo/bin or ~/.local/bin — check both

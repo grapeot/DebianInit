@@ -77,7 +77,7 @@ fi
 section "Core CLI tools"
 CORE_TOOLS=(
     coreutils wget tmux ripgrep htop btop macmon p7zip rsync nmap
-    shellcheck tig socat gh git-lfs exiftool neovim fd lazygit
+    shellcheck tig socat gh git-lfs exiftool neovim fd lazygit zellij
 )
 for tool in "${CORE_TOOLS[@]}"; do
     if brew list --formula 2>/dev/null | grep -qx "$tool"; then
