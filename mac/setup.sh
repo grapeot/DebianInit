@@ -32,11 +32,11 @@ info "Platform: macOS $(sw_vers -productVersion)"
 
 # ── Architecture detection ────────────────────────────────────────────────────
 ARCH=$(uname -m)
-if [[ "$ARCH" == "arm64" ]]; then
-    info "Architecture: Apple Silicon (arm64)"
-else
-    info "Architecture: Intel (x86_64)"
+if [[ "$ARCH" != "arm64" ]]; then
+    error "This setup requires Apple Silicon (arm64). Detected: $ARCH"
+    exit 1
 fi
+info "Architecture: Apple Silicon (arm64)"
 
 # ── Stage 1: Bootstrap (critical — abort on failure) ─────────────────────────
 section "Stage 1: Bootstrap (base layer)"
