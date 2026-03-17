@@ -53,7 +53,7 @@ CASK_CHOICES=$(gum choose --no-limit \
     "Firefox (firefox)" \
     "Rectangle (rectangle)" \
     "Antigravity (antigravity)" \
-    "Antigravity Tools [tap required]" \
+    "Antigravity Tools [GitHub release]" \
     || true)
 
 # Screen 2 — CLI Tools & Libraries (brew formula)
@@ -181,10 +181,24 @@ if [ -n "$CASK_CHOICES" ]; then
                 install_cask "rectangle" ;;
             "Antigravity (antigravity)")
                 install_cask "antigravity" ;;
-            "Antigravity Tools [tap required]")
-                warn "Tapping lbjlaq/antigravity-manager..."
-                brew tap lbjlaq/antigravity-manager 2>/dev/null || true
-                install_cask "lbjlaq/antigravity-manager/antigravity-tools" ;;
+            "Antigravity Tools [GitHub release]")
+                if [ -d "/Applications/Antigravity Tools.app" ]; then
+                    warn "Antigravity Tools already installed (skipping)"
+                    skip_count=$((skip_count + 1))
+                else
+                    warn "Downloading Antigravity Tools from GitHub Release..."
+                    AT_TAG=$(curl -sf "https://api.github.com/repos/lbjlaq/Antigravity-Manager/releases/latest" | python3 -c "import json,sys; print(json.load(sys.stdin)['tag_name'])" 2>/dev/null || echo "v4.1.30")
+                    AT_VER="${AT_TAG#v}"
+                    AT_URL="https://github.com/lbjlaq/Antigravity-Manager/releases/download/${AT_TAG}/Antigravity.Tools_${AT_VER}_aarch64.dmg"
+                    AT_DMG="$HOME/Downloads/Antigravity_Tools.dmg"
+                    if curl -L --progress-bar -o "$AT_DMG" "$AT_URL" && open "$AT_DMG"; then
+                        info "Antigravity Tools DMG downloaded and opened"
+                        install_count=$((install_count + 1))
+                    else
+                        error "Failed to download Antigravity Tools"
+                        fail_count=$((fail_count + 1))
+                    fi
+                fi ;;
             *)
                 warn "Unknown cask choice: $choice (skipping)" ;;
         esac
