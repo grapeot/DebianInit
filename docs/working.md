@@ -2,6 +2,10 @@
 
 ## Changelogs
 
+### 2026-03-21
+
+- `mac/apps.sh`: optional **Rust** via official **rustup** installer (`sh.rustup.rs`, non-interactive `-y`); listed with other CLI formulas in `gum choose`, **pre-selected by default** like the rest (user can deselect). `mac/verify.sh`: optional `cargo`/`rustc` check with `~/.cargo/env` PATH hint.
+
 ### 2026-03-16
 
 - Audit current machine: 193 brew formulae (59 explicit), 14 casks, 66 apps in /Applications

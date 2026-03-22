@@ -68,16 +68,7 @@ FORMULA_ITEMS=(
     "astrometry-net" "argyll-cms"
     "Rust (rustup) [official installer]"
 )
-# Pre-select all except Rust (optional toolchain; large download)
-FORMULA_SELECTED=""
-for item in "${FORMULA_ITEMS[@]}"; do
-    if [[ "$item" != "Rust (rustup) [official installer]" ]]; then
-        if [[ -n "$FORMULA_SELECTED" ]]; then
-            FORMULA_SELECTED+=","
-        fi
-        FORMULA_SELECTED+="$item"
-    fi
-done
+FORMULA_SELECTED=$(IFS=,; echo "${FORMULA_ITEMS[*]}")
 FORMULA_CHOICES=$(gum choose --no-limit \
     --header "Select CLI Tools & Libraries to install (deselect to skip):" \
     --selected "$FORMULA_SELECTED" \
