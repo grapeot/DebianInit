@@ -71,6 +71,14 @@ else
     check_warn "go: not installed (optional)"
 fi
 
+# Optional: Rust (rustup) — cargo may be missing from PATH until shell loads ~/.cargo/env
+if command -v cargo &>/dev/null; then
+    ver=$(rustc --version 2>/dev/null || echo "version unknown")
+    check_pass "Rust (optional): $ver"
+else
+    check_warn "Rust (cargo): not installed (optional) — if installed, run: . \"\$HOME/.cargo/env\""
+fi
+
 # ── 2. Brew cask apps in /Applications ───────────────────────────────────────
 section "Applications in /Applications"
 
