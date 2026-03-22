@@ -66,8 +66,18 @@ FORMULA_ITEMS=(
     "ffmpeg" "sox" "zbar" "pandoc" "marp-cli"
     "borgbackup" "cmake" "go" "swig"
     "astrometry-net" "argyll-cms"
+    "Rust (rustup) [official installer]"
 )
-FORMULA_SELECTED=$(IFS=,; echo "${FORMULA_ITEMS[*]}")
+# Pre-select all except Rust (optional toolchain; large download)
+FORMULA_SELECTED=""
+for item in "${FORMULA_ITEMS[@]}"; do
+    if [[ "$item" != "Rust (rustup) [official installer]" ]]; then
+        if [[ -n "$FORMULA_SELECTED" ]]; then
+            FORMULA_SELECTED+=","
+        fi
+        FORMULA_SELECTED+="$item"
+    fi
+done
 FORMULA_CHOICES=$(gum choose --no-limit \
     --header "Select CLI Tools & Libraries to install (deselect to skip):" \
     --selected "$FORMULA_SELECTED" \
@@ -126,6 +136,23 @@ install_formula() {
         install_count=$((install_count + 1))
     else
         error "Failed to install $formula_name"
+        fail_count=$((fail_count + 1))
+    fi
+}
+
+# Helper: Rust via official rustup (not Homebrew rust; matches rust-lang ecosystem)
+install_rustup() {
+    if command -v cargo &>/dev/null; then
+        warn "Rust (cargo) already installed — skipping"
+        skip_count=$((skip_count + 1))
+        return
+    fi
+    warn "Installing Rust via rustup.rs (non-interactive)..."
+    if curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y; then
+        info "Rust installed — open a new shell or run: . \"\$HOME/.cargo/env\""
+        install_count=$((install_count + 1))
+    else
+        error "Failed to install Rust (rustup)"
         fail_count=$((fail_count + 1))
     fi
 }
@@ -218,7 +245,12 @@ fi
 if [ -n "$FORMULA_CHOICES" ]; then
     while IFS= read -r formula; do
         [ -z "$formula" ] && continue
-        install_formula "$formula"
+        case "$formula" in
+            "Rust (rustup) [official installer]")
+                install_rustup ;;
+            *)
+                install_formula "$formula" ;;
+        esac
     done <<EOF
 $FORMULA_CHOICES
 EOF
