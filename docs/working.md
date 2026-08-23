@@ -2,6 +2,12 @@
 
 ## Changelogs
 
+### 2026-08-23
+
+- `setup_ubuntu.sh`: make the Ubuntu bootstrap idempotent (`set -euo pipefail`, skip existing oh-my-zsh / z / .dotfiles, skip `chsh` if already zsh).
+- Drop `python3` / `python3-pip` / `sudo pip3` / `virtualenv`. Install **uv** via the official installer (`UV_NO_MODIFY_PATH=1` so it does not rewrite the `.zshrc` symlink). Put `~/.local/bin` on PATH through `~/.zshenv`.
+- Install `trash-cli` from apt instead of pip. Remove the default sshd `22 → 30` port change and the commented XFCE / VNC / Chrome block.
+
 ### 2026-03-21
 
 - `mac/apps.sh`: optional **Rust** via official **rustup** installer (`sh.rustup.rs`, non-interactive `-y`); listed with other CLI formulas in `gum choose`, **pre-selected by default** like the rest (user can deselect). `mac/verify.sh`: optional `cargo`/`rustc` check with `~/.cargo/env` PATH hint.
