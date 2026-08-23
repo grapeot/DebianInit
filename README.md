@@ -20,9 +20,16 @@ cd DebianInit
 
 # Otherplatforms
 
-## ec2-ubuntu
+## Ubuntu
 
-Also supports ubuntu on ec2 for scientific computing. Usage similar to debian.
+Idempotent CLI bootstrap (`setup_ubuntu.sh`). Safe to re-run. Does not change the SSH port.
+
+Python for development is **uv** (same installer as Mac). Distro `python3` is left alone; do not `pip install` into it.
+
+```
+cd DebianInit
+./setup_ubuntu.sh
+```
 
 ## cygwin
 

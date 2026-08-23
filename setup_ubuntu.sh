@@ -1,74 +1,120 @@
-#! /bin/bash
-# Configure sources
-sudo apt-get update
+#!/usr/bin/env bash
+# Ubuntu CLI bootstrap. Idempotent: safe to re-run.
+set -euo pipefail
 
-# Configure development environment
-sudo apt-get install -y -q vim zsh git wget dos2unix python3 python3-pip parallel tig build-essential curl htop rsync tmux zip unzip pkg-config
-# shell environment...
-wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
-pushd ~
-git clone https://github.com/rupa/z
-popd
-# .dotfiles
-pushd ~
-git clone --recursive https://github.com/grapeot/.dotfiles
-./.dotfiles/deploy_linux.sh
-popd
-# git configuration
+GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'; RESET='\033[0m'
+info()    { printf "${GREEN}✓${RESET}  %s\n" "$*"; }
+warn()    { printf "${YELLOW}⚠${RESET}  %s\n" "$*"; }
+error()   { printf "${RED}✗${RESET}  %s\n" "$*" >&2; }
+section() { printf "\n${GREEN}═══ %s ═══${RESET}\n" "$*"; }
+
+# uv lives here; keep it on PATH for this run and for later zsh sessions
+# via ~/.zshenv (not .zshrc — that file is a symlink into .dotfiles).
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+
+# ── 1. Packages ──────────────────────────────────────────────────────────────
+section "apt packages"
+sudo apt-get update
+sudo apt-get install -y -q \
+    vim zsh git wget dos2unix parallel tig build-essential curl \
+    htop rsync tmux zip unzip pkg-config trash-cli
+info "apt packages up to date"
+
+# ── 2. uv (user-space Python toolchain) ──────────────────────────────────────
+section "uv"
+if command -v uv &>/dev/null; then
+    info "uv already installed: $(uv --version)"
+else
+    warn "Installing uv..."
+    # Do not let the installer rewrite ~/.zshrc (symlink to .dotfiles).
+    curl -LsSf https://astral.sh/uv/install.sh | env UV_NO_MODIFY_PATH=1 sh
+    export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+    if command -v uv &>/dev/null; then
+        info "uv installed: $(uv --version)"
+    else
+        error "uv installed but not on PATH (expected ~/.local/bin)"
+        exit 1
+    fi
+fi
+
+zshenv="$HOME/.zshenv"
+local_bin_line='export PATH="$HOME/.local/bin:$PATH"'
+if [[ -f "$zshenv" ]] && grep -qF '.local/bin' "$zshenv"; then
+    info "~/.zshenv already adds ~/.local/bin"
+else
+    printf '\n%s\n' "$local_bin_line" >> "$zshenv"
+    info "Added ~/.local/bin to ~/.zshenv"
+fi
+
+# ── 3. oh-my-zsh ─────────────────────────────────────────────────────────────
+section "oh-my-zsh"
+if [[ -d "$HOME/.oh-my-zsh" ]]; then
+    info "oh-my-zsh already installed"
+else
+    warn "Installing oh-my-zsh..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    info "oh-my-zsh installed"
+fi
+
+# ── 4. z ─────────────────────────────────────────────────────────────────────
+section "z"
+if [[ -d "$HOME/z" ]]; then
+    info "~/z already cloned"
+else
+    git clone https://github.com/rupa/z "$HOME/z"
+    info "cloned rupa/z"
+fi
+
+# ── 5. Dotfiles ──────────────────────────────────────────────────────────────
+section "dotfiles"
+if [[ -d "$HOME/.dotfiles" ]]; then
+    info ".dotfiles already present"
+else
+    git clone --recursive https://github.com/grapeot/.dotfiles "$HOME/.dotfiles"
+fi
+"$HOME/.dotfiles/deploy_linux.sh"
+info "dotfiles deployed"
+
+# ── 6. Git ───────────────────────────────────────────────────────────────────
+section "git config"
 git config --global user.name "Yan Wang"
 git config --global user.email grapeot@outlook.com
-git config --global push.default simple # eliminate the warning message of the new version git
+git config --global push.default simple
 git config --global color.ui auto
 git config --global core.fileMode false
-# ssh configuration (won't take effect until restart)
-sudo bash -c "cat /etc/ssh/sshd_config | sed 's/Port 22/Port 30/' | tee /etc/ssh/sshd_config"
-# install trash-cli
-sudo pip3 install trash-cli virtualenv
+info "git config applied"
 
-# # Installing desktop environment 
-# sudo apt-get install -y -q python-gtk2 python-xlib xfce4 xfce4-power-manager xfce4-screenshooter xfce4-terminal xfce4-systemload-plugin vim-gtk evince ristretto ttf-wqy-microhei ttf-wqy-zenhei fonts-inconsolata gnome-screensaver xauth x11-apps tightvncserver
-# # Make the X11 work properly
-# cat /etc/X11/Xwrapper.config | sed 's/console/anybody/' | sudo cat >> /etc/X11/Xwrapper.config
-# sudo chown ubuntu:ubuntu ~/.Xauthority
-# # Configure the fonts and themes
-# sudo apt-get remove -y xscreensaver
-# wget http://font.ubuntu.com/download/ubuntu-font-family-0.80.zip
-# unzip ubuntu-font-family-0.80.zip
-# mkdir ~/.fonts
-# mv ubuntu-font-family-0.80/*.ttf ~/.fonts
-# rm -rf ubuntu-font-family-0.80
-# rm ubuntu-font-family-0.80.zip
-# fc-cache -fv
-# mkdir ~/.themes
-# pushd ~/.themes
-# wget https://dl.opendesktop.org/api/files/download/id/1460761610/150905-adwaita-x-dark-light-1.3.zip -O Adwaita.zip 
-# unzip Adwaita.zip
-# rm Adwaita.zip
-# ln -s /usr/share/themes/Adwaita/gtk-3.0 ~/.themes/Adwaita-X-dark/gtk-3.0
-# popd
+# ── 7. Default shell ─────────────────────────────────────────────────────────
+section "default shell"
+zsh_path="$(command -v zsh)"
+current_shell="$(getent passwd "$USER" | cut -d: -f7)"
+if [[ "$current_shell" == "$zsh_path" ]]; then
+    info "default shell already zsh"
+else
+    warn "Changing default shell to $zsh_path (may prompt for password)"
+    chsh -s "$zsh_path"
+    info "default shell set to zsh — open a new terminal to use it"
+fi
 
-# # Optional software, uncomment to install
-# # quicktile
-# wget http://github.com/ssokolow/quicktile/zipball/master -O quicktile.zip
-# unzip quicktile.zip
-# cd ssokolow-quicktile*
-# sudo ./setup.py install
-# cd ..
-# mkdir ~/.config
-# cp quicktile.cfg ~/.config
-# sudo rm -rf ssokolow-quicktile*
-# rm quicktile.zip
-# # Chrome
-# wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-# sudo dpkg -i google-chrome-stable_current_amd64.deb
-# # Dropbox
-# wget https://www.dropbox.com/download?dl=packages/debian/dropbox_1.6.0_amd64.deb -O dropbox.deb
-# sudo dpkg -i dropbox.deb
-# sudo apt-get install -f -y
-# rm google-chrome-stable_current_amd64.deb dropbox.deb
-
-# Change the default shell in the end because it requires user interactions
-chsh -s $(which zsh)
-
-# Mount s3fs specially for spot requests, add your own credentials here
-# ./install_fuse.sh
+# ── 8. Verify ────────────────────────────────────────────────────────────────
+section "verify"
+fail=0
+check() {
+    local cmd="$1"
+    if command -v "$cmd" &>/dev/null; then
+        info "$cmd: $(command -v "$cmd")"
+    else
+        error "$cmd: NOT FOUND"
+        fail=1
+    fi
+}
+check zsh
+check git
+check tmux
+check uv
+check trash-put
+if [[ "$fail" -ne 0 ]]; then
+    error "setup_ubuntu.sh finished with missing commands"
+    exit 1
+fi
+info "setup_ubuntu.sh complete"
