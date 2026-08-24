@@ -15,7 +15,7 @@ git clone https://github.com/grapeot/DebianInit
 visudo # grant your user the sudo privilege
 exit
 cd DebianInit
-./setup.sh | tee logs
+./setup_debian.sh | tee logs
 ```
 
 # Otherplatforms
