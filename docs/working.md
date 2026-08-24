@@ -1,6 +1,14 @@
 # Working Notes
 
+Current layout: `setup_ubuntu.sh` (Linux), `mac/setup.sh` (Apple Silicon), `setup_debian.sh` (legacy Debian 7), `setup_windows.ps1` + `cygwin.sh`. User-facing docs are `README.md` and `docs/dev_mac.md`.
+
 ## Changelogs
+
+### 2026-08-24
+
+- Rename `setup.sh` → `setup_debian.sh` so the Debian 7 desktop script is not the implied default.
+- Rewrite `README.md` around the current entry points. Drop the `cgywin.cmd` instruction (that file does not exist; Windows starts at `setup_windows.ps1`). Document the empty `~/.oh-my-zsh` stub that skips the real oh-my-zsh install.
+- Rewrite `docs/dev_mac.md` to match `mac/`: Apple Silicon only, `zellij` in bootstrap, `rectangle` as a cask, Antigravity Tools via GitHub Release DMG (not the old brew tap), no `osx.sh`.
 
 ### 2026-08-23
 
