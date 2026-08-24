@@ -1,44 +1,56 @@
 # Working Notes
 
-Current layout: `setup_ubuntu.sh` (Linux), `mac/setup.sh` (Apple Silicon), `setup_debian.sh` (legacy Debian 7), `setup_windows.ps1` + `cygwin.sh`. User-facing docs are `README.md` and `docs/dev_mac.md`.
+Unified notes, architecture evolution, changelogs, and operational lessons across all supported operating systems (`setup_ubuntu.sh`, `mac/`, `setup_debian.sh`, `setup_windows.ps1`).
 
-## Changelogs
+---
+
+## Architecture & Layout
+
+- **Linux (Modern)**: `setup_ubuntu.sh` — Idempotent CLI bootstrap with `uv`, `.dotfiles`, and fail-fast `set -euo pipefail`. Git: `Yan Wang <grapeot@outlook.com>`. Does **not** change SSH port 22.
+- **macOS (Apple Silicon)**: `mac/setup.sh` orchestrates `bootstrap.sh` (base) → `apps.sh` (TUI selection; calls `davinci.sh` if DaVinci is chosen) → DaVinci **presence check** (does not invoke `davinci.sh`) → `verify.sh` (audit). Darwin/`arm64` guard is only in `setup.sh`. Git: `Yan Wang <grapeot@outlook.com>`.
+- **macOS Generative Kernel Spec**: `docs/dev_mac.md` — Prompt and decision layer for AI Agents managing Mac setups.
+- **Legacy Linux**: `setup_debian.sh` — 2013 Debian 7 XFCE desktop setup (renamed from `setup.sh`). Git: `Yan Wang <grapeot@gmail.com>`. SSH `22 → 30`.
+- **Windows / Cygwin**: `setup_windows.ps1` (elevated PowerShell) + `cygwin.sh`. Cygwin git: `Yan Wang <grapeot@outlook.com>`. SSH `22 → 30`.
+
+---
+
+## Changelog
 
 ### 2026-08-24
-
-- Rename `setup.sh` → `setup_debian.sh` so the Debian 7 desktop script is not the implied default.
-- Rewrite `README.md` around the current entry points. Drop the `cgywin.cmd` instruction (that file does not exist; Windows starts at `setup_windows.ps1`). Document the empty `~/.oh-my-zsh` stub that skips the real oh-my-zsh install.
-- Rewrite `docs/dev_mac.md` to match `mac/`: Apple Silicon only, `zellij` in bootstrap, `rectangle` as a cask, Antigravity Tools via GitHub Release DMG (not the old brew tap), no `osx.sh`.
+- **Documentation Architecture Overhaul**: Fully rewrote `README.md` and `docs/dev_mac.md` to align with the active 2026 repository state.
+- **Debian Entry Point Renaming**: Renamed `setup.sh` → `setup_debian.sh` to prevent confusion with the modern Ubuntu script. Updated all README commands.
+- **Cygwin Entry Point Fix**: Removed references to nonexistent `cgywin.cmd`, pointing explicitly to `setup_windows.ps1`.
+- **Vendor Image Edge-Case Note**: Documented the empty `~/.oh-my-zsh` stub bug on SBC images (e.g. Orange Pi / Armbian). `setup_ubuntu.sh` and `mac/bootstrap.sh` still treat any existing `~/.oh-my-zsh` **directory** as installed; they do not check for `oh-my-zsh.sh`.
+- **Mac Generative Kernel Alignment**: Aligned `docs/dev_mac.md` with `mac/apps.sh` and `mac/bootstrap.sh` (Apple Silicon only, `zellij`, `rectangle` cask, GitHub Release DMG for Antigravity Tools, `rustup.rs` installer).
+- **Documentation Fact-Check**: Corrected Stage 4 (`setup.sh` does not call `davinci.sh`), Windows/Cygwin execution order, Debian 7 git email (`grapeot@gmail.com`), TUI counts (23 casks + 2 special GUI items; 11 formulae + rustup), Ubuntu oh-my-zsh installer vs clone, `chsh` path, and single-threaded DaVinci `curl` download.
 
 ### 2026-08-23
-
-- `setup_ubuntu.sh`: make the Ubuntu bootstrap idempotent (`set -euo pipefail`, skip existing oh-my-zsh / z / .dotfiles, skip `chsh` if already zsh).
-- Drop `python3` / `python3-pip` / `sudo pip3` / `virtualenv`. Install **uv** via the official installer (`UV_NO_MODIFY_PATH=1` so it does not rewrite the `.zshrc` symlink). Put `~/.local/bin` on PATH through `~/.zshenv`.
-- Install `trash-cli` from apt instead of pip. Remove the default sshd `22 → 30` port change and the commented XFCE / VNC / Chrome block.
+- **Ubuntu Bootstrap Modernization**: Made `setup_ubuntu.sh` strictly idempotent (`set -euo pipefail`, skipping existing oh-my-zsh / z / dotfiles / chsh).
+- **Python Toolchain to `uv`**: Dropped distro `pip3`/`virtualenv` in favor of standalone `uv` with `UV_NO_MODIFY_PATH=1`. Exported `~/.local/bin` via `~/.zshenv`.
+- **Package Cleanups**: Switched `trash-cli` to distro package manager, removed automatic SSH `22 → 30` port reassignment on Ubuntu.
 
 ### 2026-03-21
-
-- `mac/apps.sh`: optional **Rust** via official **rustup** installer (`sh.rustup.rs`, non-interactive `-y`); listed with other CLI formulas in `gum choose`, **pre-selected by default** like the rest (user can deselect). `mac/verify.sh`: optional `cargo`/`rustc` check with `~/.cargo/env` PATH hint.
+- **Rust via Official Rustup**: Added optional `rustup.rs` installer (`sh.rustup.rs -y`) into `mac/apps.sh` and `mac/verify.sh` with `~/.cargo/env` PATH verification.
 
 ### 2026-03-16
+- **Mac 5-Stage Architecture**: Implemented 5 modular stages under `mac/` (`bootstrap.sh`, `apps.sh`, `davinci.sh`, `verify.sh`, `setup.sh`).
+- **DaVinci Resolve Reverse Engineering**: Reverse-engineered Blackmagic API registration flow to enable programmatic downloads of 6.5GB installers with dynamic time-limited signature tokens.
+- **Tailscale Standalone Decision**: Enforced `tailscale-app` cask over Mac App Store to bypass Screen Time web filter blocks and enable full CLI capabilities (`tailscale ssh`).
+- **TUI Selection Engine**: Integrated charmbracelet `gum` for multi-select terminal interfaces.
 
-- Audit current machine: 193 brew formulae (59 explicit), 14 casks, 66 apps in /Applications
-- Categorize all 27 target apps into 3 tiers: brew cask (23), App Store via mas-cli (3), API automation (1)
-- Research Tailscale installation: standalone (`tailscale-app`) over App Store, due to Screen Time conflict and missing CLI features
-- Research DaVinci Resolve download: reverse-engineered Blackmagic API (registration POST → signed URL), verify token is time-limited
-- Rewrite `dev_mac.md` as Generative Kernel spec: design philosophy, 5-stage execution model, full app inventory with cask names
-- Move `dev_mac.md` to `docs/dev_mac.md`
-- Confirm removal: Haskell, code-server, sshfs+macfuse, mongodb, pyenv (replaced by uv)
-- Confirm additions: neovim, fd, lazygit, gum (TUI tool)
-- Implement 5-stage mac setup scripts in `mac/`: bootstrap.sh, apps.sh, davinci.sh, verify.sh, setup.sh (820 lines total)
-- Fix davinci.sh: detect file extension from URL instead of hardcoding .dmg (Blackmagic returns .zip)
+---
 
-## Lessons Learned
+## Lessons Learned & Operational Notes
 
-- `brew install --cask tailscale` 不存在，正确的 cask 名是 `tailscale-app`。类似的还有 `ollama-app`（不是 `ollama`）、`docker-desktop`（不是 `docker`）、`codex` vs `codex-app`（CLI vs 桌面应用）。brew cask 的命名规则和直觉不总是一致，需要逐个 `brew info --cask` 确认。
-- Blackmagic Design 的下载 URL 中 `verify=` 参数包含 Unix 时间戳，是限时 token。实测当天有效，次日过期。不能在脚本里硬编码。Arch AUR 和 NixOS 的 packager 已经逆向了 API 流程，可以参考 CachyOS PKGBUILD。
-- macOS App Store 版 Tailscale 受沙箱限制严重：Screen Time web filter 直接阻断连接，不能当 SSH server，不能检测 VPN 冲突。从 App Store 版迁移到 standalone 时必须彻底卸载（删应用→清废纸篓→重启），否则残留的系统扩展会和新版冲突（GitHub issue #17891）。
-- `mas-cli` 可以自动化 App Store 安装（`mas install <app-id>`），但 Xcode 因体积和依赖链的原因不适合通过脚本自动化，建议手动。
-- Apple Silicon 和 Intel 的 Homebrew 路径不同：arm64 在 `/opt/homebrew/bin/brew`，x86_64 在 `/usr/local/bin/brew`。脚本里需要两条路径都处理，尤其是在 brew 刚安装完、还没有被加入 shell profile 的时候。
-- `gum`（charmbracelet）作为 TUI 工具效果好：`gum choose --no-limit` 支持多选，比 bash `select` 或 `dialog` 更现代。需要在 bootstrap 阶段先装好。
-- uv 不通过 brew 安装（用 `curl -LsSf https://astral.sh/uv/install.sh | sh`），装完后在 `~/.local/bin/`。pyenv 的功能（Python 版本管理）已被 uv 完全覆盖（`uv python install`），可以彻底弃用。
+1. **Cask vs Formula Naming Discrepancies**:
+   - `brew install --cask tailscale` does not exist; the standalone cask is `tailscale-app`.
+   - `ollama-app` is the GUI client, whereas `ollama` is the CLI formula.
+   - `docker-desktop` is the GUI app, whereas `docker` is the CLI formula.
+   - `codex` is the CLI binary; `codex-app` is the GUI application.
+2. **DaVinci Resolve API Tokens**:
+   - The `verify=` parameter in Blackmagic download URLs embeds a Unix timestamp that expires rapidly. URLs must be dynamically generated on the fly and never hardcoded.
+3. **App Store Tailscale Sandbox Quarantine**:
+   - Mac App Store Tailscale cannot bind to system network extensions properly under Screen Time filters and lacks CLI capabilities. Migrations from App Store to standalone require deleting the app, emptying the Trash, and rebooting macOS before installing `tailscale-app`.
+4. **Non-Interactive Shell Paths**:
+   - Shell configuration must not assume standard interactive terminal PATHs. `uv` and `cargo` paths should be declared in `~/.zshenv` or exported explicitly in bootstrap wrappers.
+   - Actual scripts: `setup_ubuntu.sh` persists only `~/.local/bin` in `~/.zshenv` (session `PATH` also includes `~/.cargo/bin`). `mac/bootstrap.sh` exports both paths for the current session only and does not write `~/.zshenv`.
